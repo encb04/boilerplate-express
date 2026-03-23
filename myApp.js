@@ -1,7 +1,9 @@
 console.log("Hello World");
-require('dotenv').config();
+let dotenv = require('dotenv');
+let bodyParser = require('body-parser');
 let express = require('express');
 let app = express();
+app.use(bodyParser.urlencoded({extended: false}));
 app.use("/public", express.static(__dirname + "/public"))
 app.use(function(req, res, next){
     const method = req.method;
@@ -9,7 +11,6 @@ app.use(function(req, res, next){
     const ip = req.ip;
 
     console.log(method + " " + path + " " + ip);
-
 });
 
 app.get("/json", function(req, res) {
